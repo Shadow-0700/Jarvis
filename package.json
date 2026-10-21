@@ -1,0 +1,89 @@
+{
+  "name": "jarvis-agent",
+  "displayName": "JARVIS Agentic Assistant",
+  "description": "Antigravity-inspired autonomous agentic coding assistant with live reasoning and self-healing.",
+  "version": "0.3.2",
+  "publisher": "jarvis-team",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Linters"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:jarvis.sidebarView",
+    "onCommand:jarvis.openSidebar",
+    "onCommand:jarvis.setApiKey",
+    "onCommand:jarvis.createProject",
+    "onCommand:jarvis.rollbackAll",
+    "onCommand:jarvis.newSession"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jarvis-sidebar",
+          "title": "JARVIS",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "jarvis-sidebar": [
+        {
+          "type": "webview",
+          "id": "jarvis.sidebarView",
+          "name": "JARVIS",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "jarvis.openSidebar",
+        "title": "JARVIS: Open Assistant"
+      },
+      {
+        "command": "jarvis.setApiKey",
+        "title": "JARVIS: Set API Key"
+      },
+      {
+        "command": "jarvis.newSession",
+        "title": "JARVIS: New Session"
+      },
+      {
+        "command": "jarvis.createProject",
+        "title": "JARVIS: Create Project from PROJECT.md"
+      },
+      {
+        "command": "jarvis.rollbackAll",
+        "title": "JARVIS: Rollback Session Changes"
+      }
+    ]
+  },
+  "scripts": {
+    "build:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node18 --sourcemap",
+    "build:webview": "esbuild src/webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser --target=es2020 --sourcemap && node -e \"require('fs').copyFileSync('src/webview/styles.css', 'dist/styles.css')\"",
+    "build": "npm run build:extension && npm run build:webview",
+    "watch:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node18 --sourcemap --watch",
+    "watch:webview": "esbuild src/webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser --target=es2020 --sourcemap --loader:.css=text --watch",
+    "compile": "tsc -p ./ && npm run build",
+    "package": "vsce package"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.20.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3"
+  }
+}

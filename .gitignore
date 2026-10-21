@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Compiled JS artifacts (TypeScript sources are authoritative)
+src/**/*.js
+src/**/*.js.map
+!src/**/*.d.ts
+
+# VS Code extension packaging
+*.vsix
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+
+# Editor
+.vscode-test/
+.DS_Store
+Thumbs.db
+
+# JARVIS internal state
+.jarvis/
